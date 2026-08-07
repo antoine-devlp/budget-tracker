@@ -15,9 +15,15 @@ class BasicAuthProtect
      */
     public function handle(Request $request, Closure $next): Response
     {
+
+        $user = env('BASIC_AUTH_USER');
+        $pass = env('BASIC_AUTH_PASSWORD');
+        if (empty($user) || empty($pass)) {
+            abort(500, 'Basic auth non configuré');
+        }
         if (
-            $request->getUser() === env('BASIC_AUTH_USER')
-            && $request->getPassword() === env('BASIC_AUTH_PASSWORD')
+            $request->getUser() === $user
+            && $request->getPassword() === $pass
         ) {
             return $next($request);
         }
