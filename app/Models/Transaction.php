@@ -17,4 +17,8 @@ class Transaction extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    protected $casts = [
+        'transaction_date' => 'date',
+    ];
 }
