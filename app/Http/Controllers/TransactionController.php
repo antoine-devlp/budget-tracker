@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use PhpParser\Node\Stmt\Label;
 
 class TransactionController extends Controller
@@ -35,7 +36,7 @@ class TransactionController extends Controller
             'label' => 'required|string|max:255',
             'amount' => 'required|numeric',
             'transaction_date' => 'required|date',
-            'category_id' => 'required|exists:categories,id'
+            'category_id' => ['required', Rule::exists('categories', 'id')->where('user_id', $request->user()->id)]
         ]);
         $request->user()->transactions()->create($data);
         return redirect()->route('transactions.index');
