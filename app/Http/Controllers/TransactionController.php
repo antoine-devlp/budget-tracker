@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Label;
 
 class TransactionController extends Controller
 {
@@ -19,9 +20,10 @@ class TransactionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $categories = $request->user()->categories()->orderBy('name')->get();
+        return view('transactions.create', ['categories' => $categories]);
     }
 
     /**
@@ -29,7 +31,14 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'label' => 'required|string|max:255',
+            'amount' => 'required|numeric',
+            'transaction_date' => 'required|date',
+            'category_id' => 'required|exists:categories,id'
+        ]);
+        $request->user()->transactions()->create($data);
+        return redirect()->route('transactions.index');
     }
 
     /**
