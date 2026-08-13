@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use PhpParser\Node\Stmt\Label;
 
 class TransactionController extends Controller
 {
@@ -14,7 +12,7 @@ class TransactionController extends Controller
      */
     public function index(Request $request)
     {
-        $transactions = $request->user()->transactions()->latest()->get();
+        $transactions = $request->user()->transactions()->with('category')->latest()->get();
         return view('transactions.index', ['transactions' => $transactions]);
     }
 
@@ -40,14 +38,6 @@ class TransactionController extends Controller
         ]);
         $request->user()->transactions()->create($data);
         return redirect()->route('transactions.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Transaction $transaction)
-    {
-        //
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\TransactionController;
@@ -19,8 +20,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('transactions', TransactionController::class)->middleware('auth');
+Route::resource('transactions', TransactionController::class)->except('show')->middleware('auth');
 
 Route::get('/summary', SummaryController::class)->middleware('auth')->name('summary');
+
+Route::resource('categories', CategoryController::class)->except('show')->middleware('auth');
 
 require __DIR__ . '/auth.php';

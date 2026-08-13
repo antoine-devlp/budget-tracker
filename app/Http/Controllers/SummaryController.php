@@ -13,7 +13,8 @@ class SummaryController extends Controller
     {
         $total =  $request->user()->transactions()->sum('amount');
         $categories = $request->user()->categories()->withSum('transactions', 'amount')->get();
+        $uncategorized = $request->user()->transactions()->whereNull('category_id')->sum('amount');
 
-        return view('summary', ['total' => $total, 'categories' => $categories]);
+        return view('summary', ['total' => $total, 'categories' => $categories, 'uncategorized' => $uncategorized]);
     }
 }

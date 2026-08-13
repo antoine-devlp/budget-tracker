@@ -13,6 +13,10 @@
             @empty
                 <p>Pas de catégories</p>
             @endforelse
+            @if ($uncategorized > 0)
+                <h2>Sans catégories</h2>
+                <p>{{$uncategorized}}</p>
+            @endif
         </div>
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <h2>Total</h2>
