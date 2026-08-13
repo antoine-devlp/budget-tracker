@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,5 +20,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('transactions', TransactionController::class)->middleware('auth');
+
+Route::get('/summary', SummaryController::class)->middleware('auth')->name('summary');
 
 require __DIR__ . '/auth.php';
