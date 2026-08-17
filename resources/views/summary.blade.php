@@ -5,22 +5,30 @@
         </h2>
     </x-slot>
 
-    <div class="flex py-12">
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            @forelse ( $categories as $category)
-                <h2>{{$category->name}}</h2>
-                <p>{{$category->transactions_sum_amount ?? 0 }} €</p>
-            @empty
-                <p>Pas de catégories</p>
-            @endforelse
-            @if ($uncategorized > 0)
-                <h2>Sans catégories</h2>
-                <p>{{$uncategorized}}</p>
-            @endif
-        </div>
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <h2>Total</h2>
-            <p>{{ $total }} €</p>
-        </div>
+    <div class="py-12">
+        <div class="px-4 mx-auto space-y-4 max-w-7xl sm:px-6 lg:px-8">
+            <div class="flex justify-between p-6 overflow-hidden text-3xl font-bold bg-white shadow-sm sm:rounded-lg">
+                <h2>Total : </h2>
+                <p>{{  number_format($total, 2, ',', ' ') }} €</p>
+            </div>
+            <ul class="space-y-4">
+                @forelse ( $categories as $category)
+                    <li class="flex justify-between p-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                        <span>{{$category->name}} : </span>
+                        <span>{{ number_format($category->transactions_sum_amount ?? 0, 2, ',', ' ') }} €</span>
+                    </li>
+                @empty
+                    <li class="flex justify-between p-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                        <span>Pas de catégories</span>
+                    </li>
+                @endforelse
+                @if ($uncategorized > 0)
+                    <li class="flex justify-between p-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                        <span>Sans catégories : </span>
+                        <span>{{number_format($uncategorized, 2, ',', ' ')}} €</span>
+                    </li>
+                @endif
+            </ul>
+    </div>
     </div>
 </x-app-layout>
