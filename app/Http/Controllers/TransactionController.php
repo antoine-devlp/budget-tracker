@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TransactionRequest;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class TransactionController extends Controller
 {
@@ -28,14 +28,9 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TransactionRequest $request)
     {
-        $data = $request->validate([
-            'label' => 'required|string|max:255',
-            'amount' => 'required|numeric',
-            'transaction_date' => 'required|date',
-            'category_id' => ['required', Rule::exists('categories', 'id')->where('user_id', $request->user()->id)]
-        ]);
+        $data = $request->validated();
         $request->user()->transactions()->create($data);
         return redirect()->route('transactions.index');
     }
@@ -53,15 +48,10 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(TransactionRequest $request, $id)
     {
         $transaction = $request->user()->transactions()->findOrFail($id);
-        $data = $request->validate([
-            'label' => 'required|string|max:255',
-            'amount' => 'required|numeric',
-            'transaction_date' => 'required|date',
-            'category_id' => ['required', Rule::exists('categories', 'id')->where('user_id', $request->user()->id)]
-        ]);
+        $data = $request->validated();
         $transaction->update($data);
         return redirect()->route('transactions.index');
     }
