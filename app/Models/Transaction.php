@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     protected $fillable = ['amount', 'label', 'transaction_date', 'category_id'];
+    protected $casts = ['transaction_date' => 'date',];
 
     public function user()
     {
@@ -18,7 +19,13 @@ class Transaction extends Model
         return $this->belongsTo(Category::class);
     }
 
-    protected $casts = [
-        'transaction_date' => 'date',
-    ];
+    public function scopeCurrentMonth($query)
+    {
+        return $query->whereMonth('transaction_date', now()->month)
+            ->whereYear('transaction_date', now()->year);
+    }
+    public function scopePreviousMonths($query)
+    {
+        return $query->where('transaction_date', '<', now()->startOfMonth());
+    }
 }
