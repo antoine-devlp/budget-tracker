@@ -12,7 +12,7 @@
                 </x-btn-link>
             @forelse ($categories as $category)
                 <div class="mt-4 overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                    <div class="flex p-6 text-gray-900">
+                    <div class="flex items-center p-6 text-gray-900">
                         <div class="flex-1">
                             <p>{{$category->name}}</p>
                         </div>
