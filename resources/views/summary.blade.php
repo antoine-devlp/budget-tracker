@@ -15,11 +15,11 @@
                 @forelse ( $categories as $category)
                     <li class="flex justify-between p-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <span>{{$category->name}} : </span>
-                        <span>{{ number_format($category->transactions_sum_amount ?? 0, 2, ',', ' ') }} €</span>
+                        <span>{{ number_format($category->transactions_sum_amount, 2, ',', ' ') }} €</span>
                     </li>
                 @empty
                     <li class="flex justify-between p-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <span>Pas de catégories</span>
+                        <span>Aucune dépense ce mois-ci</span>
                     </li>
                 @endforelse
                 @if ($uncategorized > 0)

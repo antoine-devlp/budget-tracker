@@ -15,8 +15,8 @@ class SummaryController extends Controller
             ->currentMonth()
             ->sum('amount');
         $categories = $request->user()->categories()
-            ->withSum(['transactions' => fn($q) => $q
-                ->currentMonth()], 'amount')
+            ->withSum(['transactions' => fn($q) => $q->currentMonth()], 'amount')
+            ->having('transactions_sum_amount', '>', 0)
             ->get();
         $uncategorized = $request->user()->transactions()
             ->whereNull('category_id')
