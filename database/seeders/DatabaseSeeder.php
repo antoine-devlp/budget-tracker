@@ -44,15 +44,15 @@ class DatabaseSeeder extends Seeder
         for ($i = 0; $i < 50; $i++) {
             if ($i % 10 === 0) {
                 $category = null;
-                $label = fake()->randomElement($data['Divers']);
+                $label = $data['Divers'][array_rand($data['Divers'])];
             } else {
                 $category = $categories->random();
-                $label = fake()->randomElement($data[$category->name]);
+                $label = $data[$category->name][array_rand($data[$category->name])];
             }
             $user->transactions()->create([
-                'amount' => fake()->randomFloat(2, 5, 300),
+                'amount' => rand(500, 30000) / 100,
                 'label' => $label,
-                'transaction_date' => fake()->dateTimeBetween('-6 months', 'now'),
+                'transaction_date' => now()->subDays(rand(0, 180)),
                 'category_id' => $category?->id,
             ]);
         }
