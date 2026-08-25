@@ -1,10 +1,13 @@
 # Budget Tracker
+
 Application Laravel de suivi de dépenses personnelles avec catégorisation et analyse mensuelle
 
 ## Lien de la démo
+
 https://budget-tracker-production-hmnbxj.laravel.cloud
 
 ## identifiants de test
+
 Identifiant : 'demo@budget-tracker.test'
 Mot de passe : 'Password'
 
@@ -45,6 +48,7 @@ php artisan key:generate
 ```
 
 Configurer la base de données dans `.env` :
+
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -53,6 +57,7 @@ DB_DATABASE=budget_tracker
 DB_USERNAME=root
 DB_PASSWORD=
 ```
+
 ```bash
 php artisan migrate
 php artisan db:seed
