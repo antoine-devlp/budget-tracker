@@ -8,6 +8,11 @@ https://budget-tracker-production-hmnbxj.laravel.cloud
 Identifiant : 'demo@budget-tracker.test'
 Mot de passe : 'Password'
 
+## Captures
+
+![Liste des transactions](docs/transactions.png)
+![Page d'analyse](docs/analyse.png)
+
 ## Stack
 
 - Laravel 12 / PHP 8.x
